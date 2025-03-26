@@ -12,7 +12,6 @@ const resetGame = () => {
     randomNumber = Math.floor(Math.random() * 100) + 1; // Generate new random number
     guessInput.value = ''; // Clear input field
     result1.innerText = ''; // Clear result message
-    result1.style.color = "black"; // Reset text color
     restart.innerText = 'Restart'; // Reset button text
 }
 
