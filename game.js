@@ -1,48 +1,45 @@
 // Generate a random number between 1 and 100
+let randomNumber = Math.floor(Math.random() * 100) + 1;
+
 const result1 = document.querySelector("#result");
 const restart = document.querySelector("#restart");
 const guessInput = document.querySelector("#guessInput");
-const randomNumber = Math.floor(Math.random() * 100) + 1;
 
 let attempts = 0;
 
-let turn0 = true;
-
 const resetGame = () => {
-  attempts = 0;
-  turn0 = true;
-  enableInput();
-  result1.innerText = '';
-  
-}
-
-const enableInput = () =>{
-  guessInput.innerText = '';
+    attempts = 0;
+    randomNumber = Math.floor(Math.random() * 100) + 1; // Generate new random number
+    guessInput.value = ''; // Clear input field
+    result1.innerText = ''; // Clear result message
+    result1.style.color = "black"; // Reset text color
+    restart.innerText = 'Restart'; // Reset button text
 }
 
 function checkGuess() {
-    const userGuess = Number(document.getElementById('guessInput').value);
+    const userGuess = Number(guessInput.value);
     attempts++;
     let result = '';
 
     if (userGuess < randomNumber) {
         result = 'Too low! Try again.';
         result1.style.color = "orangered";
-        turn0 = false;
     } else if (userGuess > randomNumber) {
         result = 'Too high! Try again.';
         result1.style.color = "red";
-        turn0 = false;
     } else {
-        result = `Congratulations! You guessed the number in ${attempts} attempts.`;
+        result = `🎉 Congratulations! You guessed the number in ${attempts} attempts.`;
         result1.style.color = "green";
-        turn0 = false;
-        reStart = 'Restart';
+        restart.innerText = 'Play Again'; // Change button text when user wins
     }
 
-    document.getElementById('result').innerText = result;
-    document.getElementById('restart').innerText = reStart;
-   
+    result1.innerText = result;
 }
-restart.addEventListener("click", resetGame);
 
+guessInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+      checkGuess();
+  }
+});
+
+restart.addEventListener("click", resetGame);
